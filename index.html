@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reza | Time Display</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Nova+Flat&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .background {
+            position: absolute;
+            display: block;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 0;
+            background-color: rgb(7, 7, 26);
+        }
+
+        div.content {
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            right: 0;
+            top: 30%;
+            width: 60%;
+            margin: auto;
+        }
+
+        .name {
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 60px;
+        }
+
+        i {
+            color: white;
+            font-size: 5rem;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        h1#time {
+            
+            color: white;
+            text-align: center;
+            font-family: 'Nova Flat', cursive;
+            font-size: 5rem;
+            margin-bottom: 30px;
+        }
+
+        #quotes {
+            color: white;
+            text-align: center;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.3rem;
+            width: 80%;
+            margin: auto;
+        }
+
+        #author {
+            color: white;
+            text-align: center;
+            font-family: 'Nunito', sans-serif;
+            margin: 20px auto;
+            text-decoration: underline;
+            font-size: 1.3rem;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="content">
+        <p class="name">Happy New Years, Reza !</p>
+        <h1 id="time"></h1>
+        <i class='bx bxs-quote-alt-left'></i>
+        <h6 id="quotes"></h6>
+        <p id="author"></p>
+    </div>
+    <canvas class="background"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
+    <script>
+        window.onload = function() {
+            Particles.init({
+                selector: '.background',
+                color: '#ffff'
+            });
+        };
+
+        `use strict`;
+        function refreshTime() {
+            const timeDisplay = document.getElementById("time");
+            const dateString = new Date().toLocaleString();
+            const formattedString = dateString.replace(", ", " - ");
+            timeDisplay.textContent = formattedString;
+        }
+        setInterval(refreshTime, 1000);
+        
+        fetch('https://dummyjson.com/quotes/random')
+        .then(res => res.json())
+        .then((data) => {
+            document.getElementById('quotes').innerHTML = data.quote;
+            document.getElementById('author').innerHTML = data.author;
+        });
+    </script>
+</body>
+</html>
